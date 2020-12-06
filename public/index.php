@@ -7,7 +7,17 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     </head>
-
+    <style>
+        .fruit {
+            background-color: orange;
+        }
+        .par {
+            background-color: #f2f2f2;
+        }
+        .impar{
+            background-color: #ffffff;
+        }
+    </style>
     <body class="w-100">
         <div id="app">
             <header>
@@ -41,7 +51,7 @@
             {
                 let foods = await getFoods();
 
-                let table = `<table class="table table-striped">
+                let table = `<table class="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">Title</th>
@@ -59,8 +69,16 @@
 
                 for (let index = 0; index < foods.length; index++) {
                     let food = foods[index];
+                    let classRowColor = '#ffffff';
+
+                    if (food.type == 'fruit') {
+                        classRowColor = 'fruit';
+                    }else if ((index % 2) == 0) {
+                        classRowColor = 'par';
+                    }
+
                     let row = `
-                        <tr ${(food.type == 'fruit') ? "style='background-color:orange'" : ''}>
+                        <tr class="${classRowColor}">
                             <td>${food.title}</td>
                             <td>${food.type}</td>
                             <td>${food.price}</td>
