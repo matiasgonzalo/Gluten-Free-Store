@@ -42,19 +42,24 @@ async function displayFoods()
 
 async function getFoods() 
 {
-    let foods = await fetch('https://api.mocki.io/v1/0a9cd191');
-    foods = await foods.json();
-    foods = foods.data;
-    foods = foods.filter((item,index) => {
-        let notRepeat = foods.map(elemento => { 
-                                return elemento.title; 
-                            }).indexOf(item.title) == index;
-            if (notRepeat && (item.type != 'bakery')) {
-                return true;
-            }
+    try {
+        let foods = await fetch('https://api.mocki.io/v1/0a9cd191');
+        foods = await foods.json();
+        foods = foods.data;
+        foods = foods.filter((item,index) => {
+            let notRepeat = foods.map(elemento => { 
+                                    return elemento.title; 
+                                }).indexOf(item.title) == index;
+                if (notRepeat && (item.type != 'bakery')) {
+                    return true;
+                }
 
-            return false;
-        });
-    
-    return foods;
+                return false;
+            });
+        
+        return foods;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
 }
